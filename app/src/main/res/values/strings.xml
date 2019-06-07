@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Project1</string>
+    <string-array name="struktur">
+        <item>Kayu</item>
+        <item>Tembok</item>
+        <item>Beton</item>
+        <item>Baja</item>
+        <item>Lainnya</item>
+    </string-array>
+</resources>
