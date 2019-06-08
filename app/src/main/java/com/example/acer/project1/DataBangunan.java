@@ -16,7 +16,7 @@ public class DataBangunan {
 
     }
 
-    public long getKode() {
+    public int getKode() {
         return kode;
     }
 
@@ -101,6 +101,6 @@ public class DataBangunan {
     @Override
     public String toString()
     {
-        return "Kode "+ kode +" "+ nama_bangunan + " "+ alamat_bangunan;
+        return nama_bangunan + "\n"+ alamat_bangunan;
     }
 }

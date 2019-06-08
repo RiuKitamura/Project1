@@ -2,6 +2,7 @@ package com.example.acer.project1;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -125,14 +126,20 @@ public class FormActivity extends AppCompatActivity {
         String namaP = null;
         String almtP = null;
         String noP = null;
+        Boolean status = true;
         @SuppressWarnings("unused")
 
         //inisialisasi barang baru (masih kosong)
                 DataBangunan dtaBangunan = null;
-        if(namaBangunan.getText()!=null && jmlLantai.getText()!=null && thnDibuat.getText()!=null
-                && alamatBangunan.getText()!=null && latitude.getText()!=null && longitude.getText()!=null
-                && namaPerson.getText()!=null && alamatPerson.getText()!=null && nomorPerson.getText()!=null)
-        {
+        if(namaBangunan.getText().toString().length()==0 || jmlLantai.getText().toString().length()==0 ||
+                thnDibuat.getText().toString().length()==0 || alamatBangunan.getText().toString().length()==0 ||
+                latitude.getText().toString().length()==0 || longitude.getText().toString().length()==0 ||
+                namaPerson.getText().toString().length()==0 || alamatPerson.getText().toString().length()==0 ||
+                nomorPerson.getText().toString().length()==0){
+            Toast.makeText(getApplicationContext(),"Form harus diisi semua" ,Toast.LENGTH_SHORT).show();
+            status=false;
+        }
+        else{
             /* jika field nama, merk, dan harga tidak kosong
              * maka masukkan ke dalam data barang*/
             namaB = namaBangunan.getText().toString();
@@ -145,19 +152,23 @@ public class FormActivity extends AppCompatActivity {
             almtP = alamatPerson.getText().toString();
             noP = nomorPerson.getText().toString();
         }
+        if(status){
+            switch(v.getId())
+            {
+                case R.id.next_btn:
+                    // insert data barang baru
+                    dtaBangunan = dataSource.createDtaBangunan(namaB, jmlLti, thn, almtB, lati, longi, namaP, almtP, noP);
 
-        switch(v.getId())
-        {
-            case R.id.next_btn:
-                // insert data barang baru
-                dtaBangunan = dataSource.createDtaBangunan(namaB, jmlLti, thn, almtB, lati, longi, namaP, almtP, noP);
-
-                //konfirmasi kesuksesan
-                Toast.makeText(this, "masuk Barang\n" +
-                        "nama" + dtaBangunan.getNama_bangunan() +
-                        "lantai" + dtaBangunan.getAlamat_bangunan() +
-                        "harga" + dtaBangunan.getThn_dibuat(), Toast.LENGTH_LONG).show();
-                break;
+                    //konfirmasi kesuksesan
+                    Toast.makeText(this, "masuk Data\n" +
+                            "nama" + dtaBangunan.getNama_bangunan() +
+                            "lantai" + dtaBangunan.getAlamat_bangunan() +
+                            "harga" + dtaBangunan.getThn_dibuat(), Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(FormActivity.this,MainActivity.class);
+                    startActivity(i);
+                    break;
+            }
         }
+
     }
 }
